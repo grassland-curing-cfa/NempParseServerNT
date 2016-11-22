@@ -1255,7 +1255,7 @@ Parse.Cloud.define("getAllSimpleMMRUserRoleForUser", function(request, response)
 	
 	var queryUser = new Parse.Query(Parse.User);
 	queryUser.equalTo("objectId", userObjectId);
-	queryUser.first().then(function (user) {
+	queryUser.first({ useMasterKey: true }).then(function (user) {
 		  userName = user.get("username");
 		  var queryMMR = new Parse.Query("GCUR_MMR_USER_ROLE");
 		  // Include the post data with each comment
