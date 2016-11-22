@@ -1278,7 +1278,7 @@ Parse.Cloud.define("getSimpleObservationsForUser", function(request, response) {
 		queryMMR.include("Observer");
 		queryMMR.include("Location");
 		queryMMR.limit(1000);
-		queryMMR.find().then(function(results) {
+		queryMMR.find({ useMasterKey: true }).then(function(results) {
 			// Create a trivial resolved promise as a base case.
 		    var promises = [];
 		    // each result is a GCUR_MMR_OBSERVER_LOCATION row
