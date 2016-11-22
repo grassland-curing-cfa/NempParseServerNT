@@ -1706,7 +1706,7 @@ Parse.Cloud.define("getCurrPrevSimpleObservationsForLocation", function(request,
 		queryObservation.notEqualTo("ObservationStatus", 2);	// excludes the archived observation
 		queryObservation.ascending("ObservationStatus");	// this enables fetching current(0) and previous(1) observations
 		
-		return queryObservation.find();
+		return queryObservation.find({ useMasterKey: true });
 	}, function(error) {
 		response.error("GCUR_LOCATION table lookup failed");
 	}).then(function(results) {
