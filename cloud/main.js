@@ -2012,7 +2012,7 @@ Parse.Cloud.define("getAllLocationsWithLinkedStatusForObservers", function(reque
 		// Find the user
 		var queryUser = new Parse.Query(Parse.User);
 		queryUser.equalTo("objectId", userObjectId);
-		return queryUser.first();
+		return queryUser.first({ useMasterKey: true });
 	}).then(function (user) {
 		  userName = user.get("username");
 		  firstName = user.get("firstName");
