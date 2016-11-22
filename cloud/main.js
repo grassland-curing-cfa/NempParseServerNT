@@ -2069,7 +2069,7 @@ Parse.Cloud.define("updateLinkedLocsForObserverByIds", function(request, respons
 	queryMMR.include("Observer");
 	queryMMR.include("Location");
 	queryMMR.limit(1000);
-	queryMMR.find().then(function(results) {
+	queryMMR.find({ useMasterKey: true }).then(function(results) {
 		for (var i = 0; i < results.length; i ++) {
 			var user = results[i].get("Observer");
 	        if (user.id == observerObjId) {
