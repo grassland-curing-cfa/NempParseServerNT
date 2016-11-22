@@ -2023,7 +2023,7 @@ Parse.Cloud.define("getAllLocationsWithLinkedStatusForObservers", function(reque
 		  queryMMR.include("Observer");
 		  queryMMR.include("Location");
 		  queryMMR.limit(1000);
-		  return queryMMR.find();
+		  return queryMMR.find({ useMasterKey: true });
 	}).then(function(results) {
 		  var locationsForUser = null;
 	      
