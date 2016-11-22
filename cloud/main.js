@@ -1688,11 +1688,9 @@ Parse.Cloud.define("getCurrPrevSimpleObservationsForLocation", function(request,
 	var locObjectId = request.params.locObjectId;
 	var locName = null;
 	
-	Parse.User.logIn(SUPERUSER, SUPERPASSWORD).then(function(user) {
-		var queryLocation = new Parse.Query("GCUR_LOCATION");
-		queryLocation.equalTo("objectId", locObjectId);
-		return queryLocation.first();
-	}).then(function(result){
+	var queryLocation = new Parse.Query("GCUR_LOCATION");
+	queryLocation.equalTo("objectId", locObjectId);
+	queryLocation.first().then(function(result){
 		var location = result;		
 		locName = location.get("LocationName");
 		locStatus = location.get("LocationStatus");
