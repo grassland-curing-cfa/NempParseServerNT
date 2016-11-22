@@ -341,26 +341,11 @@ Parse.Cloud.define("countOfObservations", function(request, response) {
   });
 });
 
-Parse.Cloud.define("getUsernameFromId", function(request, response) {
-	Parse.User.logIn(SUPERUSER, SUPERPASSWORD).then(function(user) {
-		var queryUser = new Parse.Query(Parse.User);
-		queryUser.equalTo("objectId", request.params.objectId);
-		return queryUser.first();
-	  }).then(function(usr) {
-	    response.success(usr.get("username"));	
-	  }, function(error) {
-	    response.error("User table lookup failed");
-	  });
-});
-
 Parse.Cloud.define("isLocationNameExist", function(request, response) {
-  // Log-in required dued to ACL set on GCUR_LOCATION table with Roles and Users
-  Parse.User.logIn(SUPERUSER, SUPERPASSWORD).then(function(user) {
-    var query = new Parse.Query("GCUR_LOCATION");
-    query.equalTo("LocationName", request.params.locationName);
-    query.limit(1000);
-    return query.find();
-  }).then(function(results) {
+  var query = new Parse.Query("GCUR_LOCATION");
+  query.equalTo("LocationName", request.params.locationName);
+  query.limit(1000);
+  query.find().then(function(results) {
     if (results.length > 0)
       response.success(results[0]);
     else
