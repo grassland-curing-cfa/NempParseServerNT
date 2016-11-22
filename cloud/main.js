@@ -2065,13 +2065,11 @@ Parse.Cloud.define("updateLinkedLocsForObserverByIds", function(request, respons
 		newLinkedLocsIds.push(request.params.linkedLocsIds[i]["locId"]);
 	}
 	
-	Parse.User.logIn(SUPERUSER, SUPERPASSWORD).then(function(user) {
-		var queryMMR = new Parse.Query("GCUR_MMR_OBSERVER_LOCATION");
-		queryMMR.include("Observer");
-		queryMMR.include("Location");
-		queryMMR.limit(1000);
-		return queryMMR.find();
-	}).then(function(results) {
+	var queryMMR = new Parse.Query("GCUR_MMR_OBSERVER_LOCATION");
+	queryMMR.include("Observer");
+	queryMMR.include("Location");
+	queryMMR.limit(1000);
+	queryMMR.find().then(function(results) {
 		for (var i = 0; i < results.length; i ++) {
 			var user = results[i].get("Observer");
 	        if (user.id == observerObjId) {
