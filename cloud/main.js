@@ -1117,64 +1117,13 @@ Parse.Cloud.define("getRunModelDetails", function(request, response) {
 	});
 });
 
-Parse.Cloud.define("getAllSimpleMMRUserRole", function(request, response) {
-  Parse.User.logIn(SUPERUSER, SUPERPASSWORD).then(function(user) {
-	  var query = new Parse.Query("GCUR_MMR_USER_ROLE");
-	  query.include("user");
-	  query.include("role");
-	  query.limit(1000);
-	  return query.find();
-  }).then(function(results) {
-      var mmrUserRoles = []
-      for (var i = 0; i < results.length; i++) {
-        // This does not require a network access.
-        var user = results[i].get("user");
-        var username = user.get("username");
-        var userObjId = user.id;
-        var firstname = user.get("firstName");
-        var lastname = user.get("lastName");
-        var email = user.get("email");
-        var simpleUser = {
-		"objectId": userObjId,
-		"username": username,
-		"firstName": firstname,
-		"lastName": lastname,
-		"email": email
-	   };
-
-	   var role = results[i].get("role");
-        var roleName = role.get("name");
-        var roleObjId = role.id;
-        var simpleRole = {
-		"objectId": roleObjId,
-		"roleName": roleName
-	   };
-
-	   var status = results[i].get("status");
-
-	   var mmrUserRole = {
-		"simpleUser": simpleUser,
-		"simpleRole": simpleRole,
-		"status": status
-   	   };
-
-        mmrUserRoles.push(mmrUserRole);
-      }
-      response.success(mmrUserRoles);
-    }, function(error) {
-      response.error("GCUR_MMR_USER_ROLE lookup failed");
-  });
-});
-
 Parse.Cloud.define("getAllSimpleMMRUserRoleForRole", function(request, response) {
   var roleObjectId = request.params.objectId;
   var roleName = null;
   
-  Parse.User.logIn(SUPERUSER, SUPERPASSWORD).then(function(user) {
-	  var queryRole = new Parse.Query(Parse.Role);
-	  queryRole.equalTo("objectId", roleObjectId);
-	  return queryRole.find();
-  }).then(function (roles) {
+  var queryRole = new Parse.Query(Parse.Role);
+  queryRole.equalTo("objectId", roleObjectId);
+  queryRole.find().then(function (roles) {
 	  roleName = roles[0].get("name");
 	  
 	  var queryMMR = new Parse.Query("GCUR_MMR_USER_ROLE");
