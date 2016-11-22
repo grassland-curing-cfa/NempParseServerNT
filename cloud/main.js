@@ -1993,13 +1993,10 @@ Parse.Cloud.define("getAllLocationsWithLinkedStatusForObservers", function(reque
 	var lastName = null;
 	var allLocs = [];
 	
-	// Log-in required dued to class-level security set on USER table
-	Parse.User.logIn(SUPERUSER, SUPERPASSWORD).then(function(user) {
-		var query = new Parse.Query("GCUR_LOCATION");
-		query.ascending("LocationName");
-		query.limit(1000);
-	    return query.find();
-	}).then(function (locations) {
+	var query = new Parse.Query("GCUR_LOCATION");
+	query.ascending("LocationName");
+	query.limit(1000);
+	query.find().then(function (locations) {
 		console.log("All locations count: " + locations.length);
 		for (var i = 0; i < locations.length; i++) {
 			var loc = {
