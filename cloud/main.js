@@ -298,7 +298,7 @@ Parse.Cloud.define("sendEmailFinalisedDataToUsers", function(request, response) 
 //export a list of email addresses for all active users
 Parse.Cloud.define("exportEmailsForActiveUsers", function(request, response) {
 	var recipientList = "";
-	Parse.Cloud.useMasterKey();
+	//Parse.Cloud.useMasterKey();
 	
 	var queryMMR = new Parse.Query("GCUR_MMR_USER_ROLE");
 	queryMMR.include("user");
