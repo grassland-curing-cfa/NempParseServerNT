@@ -1131,7 +1131,7 @@ Parse.Cloud.define("getAllSimpleMMRUserRoleForRole", function(request, response)
 	  queryMMR.include("user");
 	  queryMMR.include("role");
 	  queryMMR.limit(1000);
-	  return queryMMR.find();
+	  return queryMMR.find({ useMasterKey: true });
   }).then(function(results) {
 	  var userStatsusForRole = null;
       var userStatusList = []
