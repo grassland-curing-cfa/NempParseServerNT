@@ -2725,8 +2725,6 @@ Parse.Cloud.define("getMostRecentDataReportByDate", function(request, response) 
  * Retrieve the detail about a FinaliseModel object by its input objectId
  */
 Parse.Cloud.define("getFinaliseModelDetail", function(request, response) {
-	Parse.Cloud.useMasterKey();
-	
 	var inFinaliseModelObjId = null;
 	
 	console.log("Getting FinaliseModel Detail for ObjectId [" + request.params.finaliseModelObjId + "]");
@@ -2737,7 +2735,7 @@ Parse.Cloud.define("getFinaliseModelDetail", function(request, response) {
 	queryFinaliseModel.equalTo("objectId", inFinaliseModelObjId);
 	queryFinaliseModel.include("submittedBy");	// Retrieve _USER
 	queryFinaliseModel.limit(1000);
-	queryFinaliseModel.first().then(function(finaliseModelJob) {
+	queryFinaliseModel.first({ useMasterKey: true }).then(function(finaliseModelJob) {
 		var jobDetail = {};
 		
 		if (finaliseModelJob != undefined) {
