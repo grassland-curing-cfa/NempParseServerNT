@@ -2078,7 +2078,7 @@ Parse.Cloud.define("updateLinkedLocsForObserverByIds", function(request, respons
 			MMRToBeSaved.push(mmr_obsvr_loc);
 		}
 		
-		return Parse.Object.saveAll(MMRToBeSaved);
+		return Parse.Object.saveAll(MMRToBeSaved, { useMasterKey: true });
 	}, function(error) {
 		// An error occurred while deleting one or more of the objects.
 	      // If this is an aggregate error, then we can inspect each error
@@ -2777,8 +2777,6 @@ Parse.Cloud.define("getFinaliseModelDetail", function(request, response) {
 Parse.Cloud.define("applyValidationByException", function(request, response) {
 	var startTime = new Date().getTime();
 	
-	Parse.Cloud.useMasterKey();
-	
 	var isValidationByException = false;
 	var countOfObsApplied = 0;
 	
@@ -2816,7 +2814,7 @@ Parse.Cloud.define("applyValidationByException", function(request, response) {
 		queryObservation.limit(1000);
 		queryObservation.notEqualTo("ObservationStatus", 2);	// only includes previous and current observations
 		queryObservation.ascending("ObservationStatus");		// 0 - current; 1 - previous
-		return queryObservation.find();
+		return queryObservation.find({ useMasterKey: true });
 	}).then(function(results) {
 		// results are JavaScript Array of GCUR_OBSERVATION objects for both current and previous weeks;
 		
@@ -2930,7 +2928,7 @@ Parse.Cloud.define("applyValidationByException", function(request, response) {
 			}
 		}
 		
-		return Parse.Object.saveAll(currObsListToBeSaved);
+		return Parse.Object.saveAll(currObsListToBeSaved, { useMasterKey: true });
 		
 		//response.success(true);
 	}).then(function(objectList) {
