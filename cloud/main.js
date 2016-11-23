@@ -2465,7 +2465,6 @@ Parse.Cloud.define("createUpdateCurrGCURAdjustLocation", function(request, respo
  * - Finalise GCUR_ADJUST_LOCATION class
  */
 Parse.Cloud.define("finaliseDataOnParse", function(request, response) {
-	Parse.Cloud.useMasterKey();
 	var result = false;
 	
 	console.log("Triggering the Cloud Function 'finaliseObservationOnParse'");
@@ -2578,8 +2577,6 @@ Parse.Cloud.define("finaliseDataOnParse", function(request, response) {
  * Retrieve all Finalise Date based on the "createdAt" column of the GCUR_FINALISEMODEL class
  */
 Parse.Cloud.define("getAllFinalisedDate", function(request, response) {
-	Parse.Cloud.useMasterKey();
-	
 	var finaliseModelList = [];
 	
 	var queryFinaliseModel = new Parse.Query("GCUR_FINALISEMODEL");
