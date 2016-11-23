@@ -2337,8 +2337,6 @@ Parse.Cloud.define("createUpdateCurrGCURAdjustDistrict", function(request, respo
 Parse.Cloud.define("getAdjustedCuringForLocations", function(request, response) {
 	var status = request.params.status;	// "status" = 0 (current), or = 1 (previous)
 	var locAdjustedCuringList = [];	// the output array for response
-
-	Parse.Cloud.useMasterKey();
 	
 	var queryAdjustLoc = new Parse.Query("GCUR_ADJUST_LOCATION");
 	queryAdjustLoc.ascending("location");
@@ -2387,9 +2385,7 @@ Parse.Cloud.define("createUpdateCurrGCURAdjustLocation", function(request, respo
 	 * 	{"status":0,"adjustedCuring":60,"adjustedDistance":72,"locObjId":"CvyfGSYArB"}]
 	 * }
 	 */
-	
-	Parse.Cloud.useMasterKey();
-	
+
 	var newAdjustByLocationObjs = request.params.newAdjustByLocationObjs;
 	
 	// Remove all the existing current GCUR_ADJUST_LOCATION records from the GCUR_ADJUST_LOCATION class
