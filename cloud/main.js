@@ -242,13 +242,12 @@ Parse.Cloud.define("sendEmailWelcomeNewUser", function(request, response) {
 Parse.Cloud.define("sendEmailFinalisedDataToUsers", function(request, response) {
 	// get all active observers, validators and administrators
 	var recipientList = CFA_GL_EMAIL + ";" + process.env.ADDITIONAL_EMAILS_FOR_FINALISED_MAP;
-	Parse.Cloud.useMasterKey();
 	
 	var queryMMR = new Parse.Query("GCUR_MMR_USER_ROLE");
 	queryMMR.include("user");
 	//queryMMR.include("role");
 	queryMMR.limit(1000);
-	queryMMR.find().then(function(results) {
+	queryMMR.find({ useMasterKey: true }).then(function(results) {
 		// results is array of GCUR_MMR_USER_ROLE records
 		for (var i = 0; i < results.length; i++) {
 			//var role = results[i].get("role");
@@ -357,13 +356,11 @@ Parse.Cloud.define("isLocationNameExist", function(request, response) {
 Parse.Cloud.define("deleteUserByUsername", function(request, response) {
 	var username = request.params.username;
 	
-	Parse.Cloud.useMasterKey();
-	
 	// Check if the username exists before it gets deleted
 	var queryUser = new Parse.Query(Parse.User);
 	queryUser.equalTo("username", username);
 	queryUser.limit(1000);
-	queryUser.find().then(function(results) {
+	queryUser.find({ useMasterKey: true }).then(function(results) {
 		console.log(results.length + " _USER found for username [" + username + "]. Ready to be destroyed by the function deleteUserByUsername!");
 		return Parse.Object.destroyAll(results);
 	}, function(error) {
@@ -401,7 +398,6 @@ Parse.Cloud.beforeSave("GCUR_OBSERVATION", function(request, response) {
 				
 	console.log("* AreaCuring[ " + newAreaCuring + "], ValidatorCuring[" + newValidatorCuring + "], AdminCuring[" + newAdminCuring + "]");
 	
-	//Parse.Cloud.useMasterKey();
 	sharedWithJurisArr = [];
 	
 	if(request.object.isNew()) {
@@ -489,8 +485,6 @@ Parse.Cloud.afterSave("GCUR_LOCATION", function(request, response) {
  * Retrieve shared infos for shared locations for State
  */
 Parse.Cloud.define("getPrevSimpleObsSharedInfoForState", function(request, response) {
-	Parse.Cloud.useMasterKey();
-	
 	var stateName = request.params.state;
 	
 	var isBufferZonePntsForStateApplied = true;
@@ -673,8 +667,6 @@ Parse.Cloud.define("getPrevSimpleObsSharedInfoForState", function(request, respo
  * This Cloud function is called from the VISCA model directly!
  */
 Parse.Cloud.define("getSharedPrevCuringForStateForInputToVISCA", function(request, response) {
-	Parse.Cloud.useMasterKey();
-	
 	var stateName = request.params.state;
 	
 	var isBufferZonePntsForStateApplied = true;
@@ -843,8 +835,6 @@ Parse.Cloud.define("getSharedPrevCuringForStateForInputToVISCA", function(reques
 });
 
 Parse.Cloud.define("updateSharedByInfo", function(request, response) {
-	Parse.Cloud.useMasterKey();
-	
 	/*
 	 * "{\"forState\":\"NSW\", \"sharedInfos\":[{\"obsObjId\":\"syCUGywaao\", \"sh\":true},{\":[{\"obsObjId\":\"TuhtjP9rke\", \"sh\":false},{\":[{\"obsObjId\":\"YEWf4x4oSl\", \"sh\":true}]}" 
 	 */
@@ -1026,8 +1016,6 @@ Parse.Cloud.beforeDelete("GCUR_FINALISEMODEL", function(request, response) {
 
 Parse.Cloud.define("deleteRunModelById", function(request, response) {
 	var objectId = request.params.objectId;
-	
-	Parse.Cloud.useMasterKey();
 	
 	var queryRunModel = new Parse.Query("GCUR_RUNMODEL");
 	queryRunModel.equalTo("objectId", objectId);
