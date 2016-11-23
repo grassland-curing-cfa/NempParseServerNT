@@ -2814,7 +2814,7 @@ Parse.Cloud.define("applyValidationByException", function(request, response) {
 		queryObservation.limit(1000);
 		queryObservation.notEqualTo("ObservationStatus", 2);	// only includes previous and current observations
 		queryObservation.ascending("ObservationStatus");		// 0 - current; 1 - previous
-		return queryObservation.find({ useMasterKey: true });
+		return queryObservation.find();
 	}).then(function(results) {
 		// results are JavaScript Array of GCUR_OBSERVATION objects for both current and previous weeks;
 		
@@ -2928,7 +2928,7 @@ Parse.Cloud.define("applyValidationByException", function(request, response) {
 			}
 		}
 		
-		return Parse.Object.saveAll(currObsListToBeSaved, { useMasterKey: true });
+		return Parse.Object.saveAll(currObsListToBeSaved);
 		
 		//response.success(true);
 	}).then(function(objectList) {
