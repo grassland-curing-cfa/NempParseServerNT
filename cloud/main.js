@@ -2268,8 +2268,6 @@ Parse.Cloud.define("createUpdateCurrGCURAdjustDistrict", function(request, respo
 	 * }
 	 */
 	
-	Parse.Cloud.useMasterKey();
-	
 	var newAdjustByDistrictObjs = request.params.newAdjustByDistrictObjs;
 	
 	// Remove all the existing current GCUR_ADJUST_DISTRICT records from the GCUR_ADJUST_DISTRICT class
