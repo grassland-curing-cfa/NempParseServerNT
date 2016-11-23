@@ -1,11 +1,9 @@
 /*
  * Cloud code for "nemp-nt-dev" connected to the "nemp_dev_nt" MongoLab DB deployed on Heroku
  * Git repo: 				https://github.com/grassland-curing-cfa/NempParseServerNT
- * Heroku app: 				https://nemp-nt-dev.herokuapp.com/parse
  * Initial checkin date: 	04/11/2016 copied and modified from main.js for NempParseServerSA
  * Following-up check date:	21/11/2016: NEMP-1-150: added request.user to beforeSave and afterSave triggers for GCUR_OBSERVATION & GCUR_LOCATION classes
  * 							
- * https://nemp-nt-dev.herokuapp.com/parse/
  */
 
 var _ = require('underscore');
@@ -18,7 +16,7 @@ var NULL_VAL_DBL = -1.0;
  
 var APP_ID = process.env.APP_ID;
 var MASTER_KEY = process.env.MASTER_KEY;
-var SERVER_URL = process.env.SERVER_URL;			// https://nemp-nt-dev.herokuapp.com/parse
+var SERVER_URL = process.env.SERVER_URL;
  
 var MG_DOMAIN = process.env.MG_DOMAIN;
 var MG_KEY = process.env.MG_KEY;
@@ -2193,8 +2191,6 @@ Parse.Cloud.define("getAdjustedCuringForAllDistricts", function(request, respons
 	var status = request.params.status;	// "status" = 0 (current), or = 1 (previous)
 	var distAdjustedCuringList = [];	// the output array for response
 
-	Parse.Cloud.useMasterKey();
-	
 	var queryDistrict = new Parse.Query("GCUR_DISTRICT");
 	queryDistrict.ascending("DISTRICT");
 	queryDistrict.limit(1000);
