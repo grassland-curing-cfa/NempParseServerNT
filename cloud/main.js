@@ -1064,7 +1064,7 @@ Parse.Cloud.define("getRunModelDetails", function(request, response) {
 	queryRunModel.containedIn("objectId", inRunModelObjList);
 	queryRunModel.include("submittedBy");	// Retrieve _USER
 	queryRunModel.limit(1000);
-	queryRunModel.find().then(function(results) {
+	queryRunModel.find({ useMasterKey: true }).then(function(results) {
 		for (var j = 0; j < results.length; j ++) {
 			var objectId = results[j].id;
 			var createdAt = results[j].createdAt;
@@ -1074,7 +1074,6 @@ Parse.Cloud.define("getRunModelDetails", function(request, response) {
 			var status = results[j].get("status");
 			var viscaFile = results[j].get("viscaFile");
 			var resolution = results[j].get("resolution");
-			
 			
 			var submittedBy = results[j].get("submittedBy");
 	        var userObjId = submittedBy.id;
