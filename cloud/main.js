@@ -1051,8 +1051,6 @@ Parse.Cloud.define("deleteRunModelById", function(request, response) {
  * Retrieve a list RunModel jobs by a list of ObjectIds
  */
 Parse.Cloud.define("getRunModelDetails", function(request, response) {
-	Parse.Cloud.useMasterKey();
-	
 	var inRunModelObjList = [];
 	var outRunModelDetails = [];
 	
