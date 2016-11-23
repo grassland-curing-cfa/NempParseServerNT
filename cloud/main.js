@@ -2481,7 +2481,7 @@ Parse.Cloud.define("finaliseDataOnParse", function(request, response) {
 			obs.set("ObservationStatus", 2);
 		}
 		
-		return Parse.Object.saveAll(prev_observations);
+		return Parse.Object.saveAll(prev_observations, { useMasterKey: true });
 	}).then(function() {
 		console.log("All GCUR_OBSERVATION records with ObservationStatus being 1 have been succssfully changed to archived observations.");
 		
@@ -2501,7 +2501,7 @@ Parse.Cloud.define("finaliseDataOnParse", function(request, response) {
 			var currDateTime = new Date();
 			obs.set("FinalisedDate", currDateTime);
 		}
-		return Parse.Object.saveAll(curr_observations);
+		return Parse.Object.saveAll(curr_observations, { useMasterKey: true });
 	}).then(function(list) {
 		// All the objects were saved.
 		console.log("All current GCUR_OBSERVATION records with ObservationStatus being 0 have been succssfully updated to previous records.");
@@ -2516,7 +2516,7 @@ Parse.Cloud.define("finaliseDataOnParse", function(request, response) {
 			var abd = prev_adjustDistricts[i];
 			abd.set("status", 2);
 		}
-		return Parse.Object.saveAll(prev_adjustDistricts);
+		return Parse.Object.saveAll(prev_adjustDistricts, { useMasterKey: true });
 	}).then(function() {
 		console.log("All GCUR_ADJUST_DISTRICT records with status being 1 have been succssfully changed to archived records.");
 		
@@ -2532,7 +2532,7 @@ Parse.Cloud.define("finaliseDataOnParse", function(request, response) {
 			// Set current to previous
 			abd.set("status", 1);
 		}
-		return Parse.Object.saveAll(curr_adjustDistricts);
+		return Parse.Object.saveAll(curr_adjustDistricts, { useMasterKey: true });
 	}).then(function(list) {
 		console.log("All current GCUR_ADJUST_DISTRICT records with ObservationStatus being 0 have been succssfully updated to previous records.");
 		
@@ -2546,7 +2546,7 @@ Parse.Cloud.define("finaliseDataOnParse", function(request, response) {
 			var abl = prev_adjustLocations[i];
 			abl.set("status", 2);
 		}
-		return Parse.Object.saveAll(prev_adjustLocations);
+		return Parse.Object.saveAll(prev_adjustLocations, { useMasterKey: true });
 	}).then(function() {
 		console.log("All GCUR_ADJUST_LOCATION records with status being 1 have been succssfully changed to archived records.");
 		
@@ -2562,7 +2562,7 @@ Parse.Cloud.define("finaliseDataOnParse", function(request, response) {
 			// Set current to previous
 			abl.set("status", 1);
 		}
-		return Parse.Object.saveAll(curr_adjustLocations);
+		return Parse.Object.saveAll(curr_adjustLocations, { useMasterKey: true });
 	}).then(function(list) {
 		// All the objects were saved.
 		console.log("All current GCUR_ADJUST_LOCATION records with ObservationStatus being 0 have been succssfully updated to previous records.");
