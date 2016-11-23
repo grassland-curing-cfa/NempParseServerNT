@@ -1518,8 +1518,6 @@ Parse.Cloud.define("getSimpleObservationsForUser", function(request, response) {
 });
 
 Parse.Cloud.define("getObsForInputToVISCA", function(request, response) {
-	Parse.Cloud.useMasterKey();
-	
 	var obsList = [];	// the output array for response
 	
 	/*
@@ -1608,8 +1606,6 @@ Parse.Cloud.define("getObsForInputToVISCA", function(request, response) {
 });
 
 Parse.Cloud.define("getCountOfLocsForDistricts", function(request, response) {
-	Parse.Cloud.useMasterKey();
-	
 	console.log("Triggering the Cloud Function 'getCountOfLocsForDistricts'");
 	
 	var districtList = [];	// the output array for response
