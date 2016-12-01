@@ -3,6 +3,7 @@
  * Git repo: 				https://github.com/grassland-curing-cfa/NempParseServerNT
  * Initial checkin date: 	04/11/2016 copied and modified from main.js for NempParseServerSA
  * Following-up check date:	21/11/2016: NEMP-1-150: added request.user to beforeSave and afterSave triggers for GCUR_OBSERVATION & GCUR_LOCATION classes
+ *							01/12/2016: NEMP-1-154: Running the "applyValidationByException" Cloud function creates incorrect String on the "SharedBy" column of the GCUR_OBSERVATION table
  * 							
  */
 
@@ -396,7 +397,7 @@ Parse.Cloud.beforeSave("GCUR_OBSERVATION", function(request, response) {
 				
 	console.log("* AreaCuring[ " + newAreaCuring + "], ValidatorCuring[" + newValidatorCuring + "], AdminCuring[" + newAdminCuring + "]");
 	
-	sharedWithJurisArr = [];
+	var sharedWithJurisArr = [];
 	
 	if(request.object.isNew()) {
 		// Adding a new GCUR_OBSERVATION object
